@@ -1,6 +1,11 @@
 import pyautogui
 import time
 import random
+from PIL import ImageGrab
+import numpy as np
+
+import text_box_check
+
 
 # Use the keyboard shortcut to open the terminal
 pyautogui.hotkey('ctrl', 'alt', 't')
@@ -50,11 +55,33 @@ def press_button(key, n_times = 1):
 # Select File
 press_button(A, 10)
 
+# Fullscreen
+pyautogui.press('f11')
+
+# Get the screen resolution
+screen_width, screen_height = ImageGrab.grab().size
+
+# Define the region to capture (e.g., the bottom half of the screen)
+top = screen_height // 2  # Halfway down the screen
+left = 0                 # Left edge of the screen
+bottom = screen_height    # Full height (bottom of the screen)
+right = screen_width     # Full width (right edge of the screen)
+
 # Random behavior
-i = 0
+i = 0 # testing (remove later)
 while True:
+    # Capture the specified region
+    screenshot = np.array(ImageGrab.grab(bbox=(left, top, right, bottom)))
+    if text_box_check.is_text_box(screenshot):
+        print("In a text box.")
+        press_button(A)
+        time.sleep(0.5)
+        continue
+    else:
+        print("Not in a text box.")
+        time.sleep(0.5)
     action = random.choice(random_behavior_list)
     press_button(action)
-    i += 1
-    if i == 50:
-        break
+    i += 1 # testing (remove later)
+    if i == 200: # testing (remove later)
+        break # testing (remove later)
