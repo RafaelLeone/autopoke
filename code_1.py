@@ -20,7 +20,7 @@ time.sleep(2)
 pyautogui.hotkey('ctrl', 'f1')
 
 # Wait for the game Opening
-time.sleep(7)
+time.sleep(5)
 
 # Buttons
 UP = 'w'
@@ -43,19 +43,18 @@ random_behavior_list = [UP, DOWN, LEFT, RIGHT, A, B]
 def press_button(key, n_times = 1):
     for _ in range(n_times):
         pyautogui.keyDown(key)
-        if key == UP or key == DOWN or key == LEFT or key == RIGHT:
-            time.sleep(0.1)
+        time.sleep(0.1)
         pyautogui.keyUp(key)
         print(button_dict[key])
-        time.sleep(1)  
 
 # Select File
-press_button(A, 4)
+press_button(A, 10)
 
 # Random behavior
 i = 0
 while True:
     action = random.choice(random_behavior_list)
     press_button(action)
+    i += 1
     if i == 50:
         break
